@@ -1,2 +1,2 @@
 # WebScraping
-WebScraping NASA Mars
+WebScraping information about Mars from the NASA website.
