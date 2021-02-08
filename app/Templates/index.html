@@ -5,71 +5,77 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>MARS DATA</title>
+  <title>Mars Facts</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <style>
-    body {
-      color: #fff9f9;
-      background-color: black;
-    }
-
-    .jumbotron {
-      background-image: url('http://t.wallpaperweb.org/wallpaper/space/1920x1080/1257942126117.jpg');
-    }
-
-    .btn {
-      background-color: black;
-      border-color: black;
-    }
-  </style>
+  <link rel="stylesheet" href="../static/styles.css">
 </head>
 
+<header class="masthead">
+    <div class="container h-100">
+      <div class="row h-100 align-items-center">
+        <div class="col-12 text-center"  id="vpadding">
+          <h1 class="font-weight-light" style="color:white">Mission to Mars</h1>
+          <p><a class="btn btn-primary btn-lg" style="background-color: #FF9D6F; border: 0px;" href="http://127.0.0.1:5000/scrape" role="button">Get Mars Facts!</a></p>
+        </div>
+      </div>
+    </div>
+  </header>
+
 <body>
-  <div class="containerfluid">
-    <div class="jumbotron text-center">
-      <h1>Mars Data</h1>
-      <a href="/scrape" class="btn btn-info" role="button">Scrape New Data</a>
-    </div>
-  </div>
 
-  <div class="containerfluid">
-    <div class="row">
-      <div class="col-md-4">
-        <div class="col-md-12">
-          <h1 class="text-uppercase">Latest Mars News:</h1>
-          <h3>{{ data.latest_title}}</h3>
-          <p>{{data.latest_paragraph}}</p>
-        </div>
-      </div>
-      
-      <div class="row">
-        <div class="col-md-12">
-          <table class="table table-sm table-striped table-bordered table-responsive-lg">
-            {{data.data_table | safe }}
-          </table>
-        </div>
-      </div>
+<!-- Mars News -->
+<div class="container-fluid"> 
+  <div class="row" style="background-color: #FFDDCD;">
+
+    <div class="col-md-6" style="padding: 5%;">
+      <h2>Latest Mars News:</h2>
+      <h3>{{ data.latest_title }}</h3>
+      <p>{{ data.latest_paragraph }}</p>
     </div>
 
-    <div class="col-md-4">
-      <div class="row">
-        <div class="col-md-12">
-          {% for hemisphere in data.items %}
-          <div class="col-md-6"><img src="{{ hemisphere["img_url"] }}" class="img-responsive" alt="Responsive image">
-            <h4>{{hemisphere.title}}</h4>
-          </div>
-          {% endfor %}
-        </div>
-        <div class="col-md-12">
-          {% for hemisphere in data.items %}
-          <div class="col-md-6"><img src="{{ hemisphere["img_url"] }}" class="img-responsive" alt="Responsive image">
-            <h4>{{hemisphere.title}}</h4>
-          </div>
-          {% endfor %}
-        </div>
-      </div>
+    <div class="col-md-6 text-center">
+      <img src="../static/news.png" style="width: 300px; height: 300px;">
     </div>
+
   </div>
+</div>
+
+
+
+<!-- Mars Facts -->
+<div class="container-fluid">
+  <div class="row" style="background-color: #FF9E76;">
+    <div class="col-md-6" style="padding-left: 3%;">
+      <h2>Mars Facts</h2>
+      <p>{{ data.mars_facts|safe }}</p>
+    </div>
+
+    <div class="col-md-6 text-center">
+      <img src="../static/mars.png" style="width: 400px; height: 400px;">
+    </div>
+  </div> 
+</div>
+
+
+
+<!-- Mars Hemispheres -->
+<div class="container-fluid" style="background-color: #99857A;">
+<div class="row">
+  <h1 class="text-center">Hemispheres of Mars</h1>
+  <br>
+{% for dict in data.hemispheres %}
+    <div class="col-md-6 text-center">
+      <div class="card text-center" style="width: 32rem;">
+        <img class="card-img-top text-center" id="scale_id" src="{{ dict.img_url }}">
+          <div class="card-body text-center">
+            <h4 class="card-title text-center">{{ dict.title }}</h4>
+          </div>
+        </div>
+    </div>
+{% endfor %}
+</div>
+</div>
+
+
 </body>
-
 </html>

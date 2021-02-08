@@ -3,11 +3,10 @@ from splinter import Browser
 from bs4 import BeautifulSoup as bs
 import time
 import pandas as pd
-import re
 
 
 def init_browser():
-    executable_path = {"executable_path": "C://Program Files/chromedriver"}
+    executable_path = {"executable_path": "/usr/local/bin/chromedriver"}
     return Browser("chrome", **executable_path, headless=False)
 
 
@@ -22,7 +21,7 @@ def scrape():
 
     # Scrape page into Soup
     html = browser.html
-    soup = bs(html, "html.parser")
+    soup = bs(html, 'html.parser')
     article_title = soup.find("div", class_='content_title').text.strip()
 
     # NASA Mars News Text
@@ -54,8 +53,10 @@ def scrape():
     for urls in urls_list:
         url = urls
         response = browser.visit(url)
+        time.sleep(3)
         soup = bs(browser.html, 'html.parser')
-        image = soup.find('a', attrs={'target&v1':'_blank', 'href': re.compile('^http://')})
+        image = soup.find('a', text="Sample")
+        print(image)
         image_link = image.get('href')
         image_url.append(image_link)
 
